@@ -17,7 +17,6 @@ BuildRequires:	zlib-devel
 BuildRequires:	chrpath
 # (oe) require perl-SWISH-API just to play safe
 Requires:	perl-SWISH-API >= %{version}
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
 
 %description
 Swish-e key features are :
