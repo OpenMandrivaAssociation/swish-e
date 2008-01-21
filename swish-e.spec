@@ -5,7 +5,7 @@
 Summary:	Simple Web Indexing System for Humans - Enhanced
 Name: 		swish-e
 Version: 	2.4.5
-Release: 	%mkrel 1
+Release: 	%mkrel 2
 License: 	GPL
 Group: 		Networking/Other
 URL: 		http://swish-e.org/
