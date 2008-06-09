@@ -136,9 +136,13 @@ mv %{buildroot}/%{_docdir}/%{name} %{buildroot}/%{_docdir}/%{name}-%{version}
 find %{buildroot}%{perl_vendorlib} -type f -name "*.so" | xargs chrpath -d
 chrpath -d %{buildroot}%{_bindir}/swish-e
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
