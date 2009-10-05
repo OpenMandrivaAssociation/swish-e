@@ -4,12 +4,13 @@
 
 Summary:	Simple Web Indexing System for Humans - Enhanced
 Name: 		swish-e
-Version: 	2.4.5
-Release: 	%mkrel 6
+Version: 	2.4.7
+Release: 	%mkrel 1
 License: 	GPL
 Group: 		Networking/Other
 URL: 		http://swish-e.org/
-Source: 	http://swish-e.org/Download/%{name}-%{version}.tar.gz
+Source: 	http://swish-e.org/distribution/%{name}-%{version}.tar.gz
+Patch0:		%{name}-2.4.7-fix-str-fmt.patch
 BuildRequires:	perl-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	pcre-devel
@@ -78,6 +79,7 @@ results in increased search performance.
 %prep
 
 %setup -q
+%patch0 -p0
 
 # perl path hack
 find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
