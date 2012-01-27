@@ -15,7 +15,6 @@ BuildRequires:	perl-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	pcre-devel
 BuildRequires:	zlib-devel
-BuildRequires:	chrpath
 # (oe) require perl-SWISH-API just to play safe
 Requires:	perl-SWISH-API >= %{version}
 
