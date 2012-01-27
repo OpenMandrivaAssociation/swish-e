@@ -86,7 +86,9 @@ results in increased search performance.
 %make
 
 pushd perl
-	perl Makefile.PL SWISHBINDIR=$(readlink -f ../src) SWISHINC="-I$(readlink -f ../src)" SWISHLIBS="-L$(readlink -f ../src/.libs) -lswish-e" SWISHVERSION="%{version}"
+	perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
+	SWISHBINDIR=$(readlink -f ../src) SWISHINC="-I$(readlink -f ../src)" \
+	SWISHLIBS="-L$(readlink -f ../src/.libs) -lswish-e" SWISHVERSION="%{version}"
         %make
 	LD_LIBRARY_PATH=../src/.libs make test
 popd
@@ -99,10 +101,6 @@ make test
 install -m0755 swish-config %{buildroot}%{_bindir}/swish-config
 
 %makeinstall_std -C perl
-
-# nuke rpath
-find %{buildroot}%{perl_vendorlib} -type f -name "*.so" | xargs chrpath -d
-chrpath -d %{buildroot}%{_bindir}/swish-e
 
 %files
 %doc %{_docdir}/%{name}
