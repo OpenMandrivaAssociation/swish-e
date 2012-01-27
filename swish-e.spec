@@ -1,6 +1,6 @@
-%define major 2
-%define libname %mklibname %{name} %{major}
-%define develname %mklibname %{name} -d
+%define	major	2
+%define	libname	%mklibname %{name} %{major}
+%define	devname	%mklibname %{name} -d
 
 Summary:	Simple Web Indexing System for Humans - Enhanced
 Name: 		swish-e
@@ -9,7 +9,7 @@ Release:	3
 License: 	GPL
 Group: 		Networking/Other
 URL: 		http://swish-e.org/
-Source: 	http://swish-e.org/distribution/%{name}-%{version}.tar.gz
+Source0: 	http://swish-e.org/distribution/%{name}-%{version}.tar.gz
 Patch0:		%{name}-2.4.7-fix-str-fmt.patch
 BuildRequires:	perl-devel
 BuildRequires:	libxml2-devel
@@ -51,7 +51,7 @@ Group:		System/Libraries
 %description -n	%{libname}
 Swish-e libraries
 
-%package -n	%{develname}
+%package -n	%{devname}
 Summary:	Swish-e devel files
 Group:		Development/C
 Requires:	%{libname} = %{version}
@@ -59,7 +59,7 @@ Provides:	%{name}-devel
 Provides:	lib%{name}-devel
 Obsoletes:	%{mklibname %{name} 2 -d}
 
-%description -n	%{develname}
+%description -n	%{devname}
 Devel files for swish-e
 
 %package -n	perl-SWISH-API
@@ -76,14 +76,12 @@ and to keep an index file open when running multiple queries. This
 results in increased search performance.
 
 %prep
-
 %setup -q
 %patch0 -p0
 
 %build
-%configure2_5x \
-    --with-libxml2=%{_prefix} \
-    --with-zlib=%{_prefix}
+%configure2_5x	--with-libxml2=%{_prefix} \
+		--with-zlib=%{_prefix}
 
 %make
 
@@ -96,8 +94,6 @@ popd
 make test
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %makeinstall_std
 
 install -m0755 swish-config %{buildroot}%{_bindir}/swish-config
@@ -110,30 +106,16 @@ mv %{buildroot}/%{_docdir}/%{name} %{buildroot}/%{_docdir}/%{name}-%{version}
 find %{buildroot}%{perl_vendorlib} -type f -name "*.so" | xargs chrpath -d
 chrpath -d %{buildroot}%{_bindir}/swish-e
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %{_docdir}/%{name}-%{version}
 %{_bindir}/swish-e
 %{_datadir}/%{name}
 %{_mandir}/man1/*
 
 %files -n %{libname}
-%defattr(-,root,root)
 %multiarch %{_libdir}/*.so.*
 
-%files -n %{develname}
-%defattr(-,root,root)
+%files -n %{devname}
 %{_bindir}/swish-config
 %multiarch %{_libdir}/*.so
 %multiarch %{_libdir}/*.*a
@@ -141,11 +123,9 @@ chrpath -d %{buildroot}%{_bindir}/swish-e
 %multiarch %{_libdir}/pkgconfig/*
 
 %files -n perl-SWISH-API
-%defattr(-,root,root)
 %doc perl/Changes perl/README
 %{_bindir}/swish-filter-test
 %{_prefix}/lib/%{name} 
 %{perl_vendorlib}/*/auto/SWISH/API/API.so
 %{perl_vendorlib}/*/SWISH/API.pm
 %{_mandir}/man3/SWISH::API.3pm*
-
