@@ -80,44 +80,17 @@ results in increased search performance.
 %setup -q
 %patch0 -p0
 
-# perl path hack
-find -type f | xargs perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g"
-
-# lib64 hack
-perl -pi -e "s|/lib\"|/%{_lib}\"|g" configure.*
-perl -pi -e "s|/lib -lz|/%{_lib} -lz|g" configure.*
-
 %build
-rm -rf autom4te.cache configure
-libtoolize --copy --force; aclocal -I config; autoheader; automake --foreign --add-missing --copy; autoconf
-
 %configure2_5x \
     --with-libxml2=%{_prefix} \
     --with-zlib=%{_prefix}
 
 %make
 
-# (oe) this is to fool the utterly borked perl crap
-cp swish-config src/
-perl -pi -e "s|^prefix=.*|prefix=%{_builddir}/%{name}-%{version}/src|g" src/swish-config
-perl -pi -e "s|^includedir=.*|includedir=%{_builddir}/%{name}-%{version}/src|g" src/swish-config
-perl -pi -e "s|^libdir=.*|libdir=%{_builddir}/%{name}-%{version}/src/.libs|g" src/swish-config
-chmod 755 src/swish-config
-
 pushd perl
-    %{__perl} Makefile.PL \
-	OPTIMIZE="%{optflags} -fPIC" \
-        SWISHIGNOREVER="" \
-        SWISHBINDIR="%{_builddir}/%{name}-%{version}/src" \
-	INSTALLDIRS=vendor
-
-        %make \
-            LIB="%{_libdir}" \
-            LIBS="-L%{_libdir} -L%{buildroot}/src/.libs -lswish-e -lz" \
-            LDFLAGS="-L%{_libdir} -L%{_builddir}/%{name}-%{version}/src/.libs" \
-            CCFLAGS="-I%{_builddir}/%{name}-%{version}/src" \
-            LDDLFLAGS="-shared -L%{_builddir}/%{name}-%{version}/src/.libs/ -lswish-e"
-        make test
+	perl Makefile.PL SWISHBINDIR=$(readlink -f ../src) SWISHINC="-I$(readlink -f ../src)" SWISHLIBS="-L$(readlink -f ../src/.libs) -lswish-e" SWISHVERSION="%{version}"
+        %make
+	LD_LIBRARY_PATH=../src/.libs make test
 popd
 
 make test
