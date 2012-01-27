@@ -98,8 +98,6 @@ make test
 
 install -m0755 swish-config %{buildroot}%{_bindir}/swish-config
 
-mv %{buildroot}/%{_docdir}/%{name} %{buildroot}/%{_docdir}/%{name}-%{version}
-
 %makeinstall_std -C perl
 
 # nuke rpath
@@ -107,7 +105,7 @@ find %{buildroot}%{perl_vendorlib} -type f -name "*.so" | xargs chrpath -d
 chrpath -d %{buildroot}%{_bindir}/swish-e
 
 %files
-%{_docdir}/%{name}-%{version}
+%doc %{_docdir}/%{name}
 %{_bindir}/swish-e
 %{_datadir}/%{name}
 %{_mandir}/man1/*
