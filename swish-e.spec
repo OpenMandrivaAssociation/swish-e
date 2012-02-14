@@ -92,6 +92,7 @@ pushd perl
 	LD_LIBRARY_PATH=../src/.libs make test
 popd
 
+%check
 make test
 
 %install
