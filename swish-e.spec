@@ -109,14 +109,14 @@ install -m0755 swish-config %{buildroot}%{_bindir}/swish-config
 %{_mandir}/man1/*
 
 %files -n %{libname}
-%multiarch %{_libdir}/*.so.*
+%{_libdir}/*.so.*
 
 %files -n %{devname}
 %{_bindir}/swish-config
-%multiarch %{_libdir}/*.so
-%multiarch %{_libdir}/*.*a
+%{_libdir}/*.so
+%{_libdir}/*.*a
 %{_includedir}/*.h
-%multiarch %{_libdir}/pkgconfig/*
+%{_libdir}/pkgconfig/*
 
 %files -n perl-SWISH-API
 %doc perl/Changes perl/README
