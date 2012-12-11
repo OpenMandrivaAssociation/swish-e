@@ -125,3 +125,78 @@ install -m0755 swish-config %{buildroot}%{_bindir}/swish-config
 %{perl_vendorlib}/*/auto/SWISH/API/API.so
 %{perl_vendorlib}/*/SWISH/API.pm
 %{_mandir}/man3/SWISH::API.3pm*
+
+
+%changelog
+* Wed Feb 15 2012 Per Øyvind Karlsen <peroyvind@mandriva.org> 2.4.7-3
++ Revision: 774134
+- drop useless %%multiarch usage...
+- move 'make test' to a dedicated %%check section
+- drop buildrequires om chrpath
+- fix  module being installed under site_perl  rather site_perl
+- drop rpath
+- don't make docdir version
+- cleanups
+- drop ugly hacks for perl build
+- mass rebuild of perl extensions against perl 5.14.2
+
+  + Thomas Spuhler <tspuhler@mandriva.org>
+    - increase version to 2 for rebuild
+    - increase version t o 2 for rebuild
+      removed buildroot line as it is not needed
+
+* Thu Jul 22 2010 Jérôme Quelin <jquelin@mandriva.org> 2.4.7-2mdv2011.0
++ Revision: 556781
+- perl 5.12 rebuild
+
+* Tue Oct 06 2009 Rémy Clouard <shikamaru@mandriva.org> 2.4.7-1mdv2010.0
++ Revision: 454345
+- fix #35787
+- fix build errors (string format)
+- fix Source link
+- new upstream release (2009-04-05)
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+    - rebuild
+    - rebuild
+    - rebuild for new perl
+    - kill re-definition of %%buildroot on Pixel's request
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+  + Olivier Blin <blino@mandriva.org>
+    - restore BuildRoot
+
+* Sun Nov 25 2007 Oden Eriksson <oeriksson@mandriva.com> 2.4.5-1mdv2008.1
++ Revision: 111901
+- import swish-e
+
+
+* Sun Nov 25 2007 Oden Eriksson <oeriksson@mandriva.com> 2.4.5-1mdv2008.1
+- fix #35779 (swish-e version bump request)
+
+* Sun Jun 19 2005 Oden Eriksson <oeriksson@mandriva.com> 2.4.3-3mdk
+- added the missing perl bindigs partly as of the provided 
+  spec file
+- fix deps
+
+* Tue May 10 2005 Lenny Cartier <lenny@mandrakesoft.com> 2.4.3-2mdk
+- fixes for x86-64
+
+* Thu May 10 2005 Lenny Cartier <lenny@mandrakesoft.com> 2.4.3-1mdk
+- 2.4.3
+
+* Fri Jul 02 2004 Lenny Cartier <lenny@mandrakesoft.com> 2.2.3-2mdk
+- rebuild
+
+* Thu Jun 12 2003 Marcel Pol <mpol@gmx.net> 2.2.3-1mdk
+- 2.2.3
+
+* Thu Nov 22 2001 Yves Duret <yduret@mandrakesoft.com> 2.0.5-2mdk
+- update url
+- rebuild
+
+* Mon Sep 03 2001 Yves Duret <yduret@mandrakesoft.com> 2.0.5-1mdk
+- first mandrake version 
