@@ -8,7 +8,7 @@ Version: 	2.4.7
 Release:	4
 License: 	GPL
 Group: 		Networking/Other
-URL: 		http://swish-e.org/
+URL: 		https://swish-e.org/
 Source0: 	http://swish-e.org/distribution/%{name}-%{version}.tar.gz
 Patch0:		%{name}-2.4.7-fix-str-fmt.patch
 BuildRequires:	perl-devel
