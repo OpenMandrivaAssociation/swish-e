@@ -11,6 +11,11 @@ Group: 		Networking/Other
 URL: 		https://swish-e.org/
 Source0: 	http://swish-e.org/distribution/%{name}-%{version}.tar.gz
 Patch0:		%{name}-2.4.7-fix-str-fmt.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	pcre-devel
